@@ -2,15 +2,19 @@ import random
 from string import hexdigits
 import anthropic
 from dotenv import load_dotenv
-from jinja2 import Template
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 
 load_dotenv()
 
 client = anthropic.Anthropic()
 app = FastAPI()
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
 
 
 @app.get("/")
@@ -19,38 +23,13 @@ def read_root():
 
 
 @app.get("/random-color", response_class=HTMLResponse)
-def random_color():
+def random_color(request: Request):
     hex_chars = "".join(random.choices(hexdigits.lower(), k=6))
     hex_color = f"#{hex_chars}"
-    html_template = """
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Random Color Generator</title>
-        <style>
-            body {
-                height: 100vh;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background-color: {{ color }};
-                color: white;
-                font-size: 120px;
-                font-family: monospace;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="color-code">{{ color }}</div>
-    </body>
-    </html>
-    """
-
-    html_content = Template(html_template)
-    website = html_content.render(color=hex_color)
-
-    return website
+    context = {"color": hex_color}
+    return templates.TemplateResponse(
+        request=request, name="color.html", context=context
+    )
 
 
 @app.get("/welcome", response_class=HTMLResponse)
