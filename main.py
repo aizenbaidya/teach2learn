@@ -13,7 +13,7 @@ load_dotenv()
 client = anthropic.Anthropic()
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+# app.mount("/static", StaticFiles(directory="static"), name="static")
 app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
 templates = Jinja2Templates(directory="templates")
 
