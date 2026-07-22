@@ -17,7 +17,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 
-@app.get("/")
+@app.get("/hello-world")
 def read_root():
     return {"Hello": "World"}
 
@@ -62,3 +62,6 @@ def print_message():
     )
 
     print(message)
+
+
+app.mount("/", StaticFiles(directory="dist", html=True), name="static")
