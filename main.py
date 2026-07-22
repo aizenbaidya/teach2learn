@@ -14,6 +14,7 @@ client = anthropic.Anthropic()
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
 templates = Jinja2Templates(directory="templates")
 
 
@@ -64,4 +65,4 @@ def print_message():
     print(message)
 
 
-app.mount("/", StaticFiles(directory="dist", html=True), name="static")
+app.mount("/", StaticFiles(directory="dist", html=True), name="dist")
