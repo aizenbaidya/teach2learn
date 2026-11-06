@@ -6,7 +6,10 @@ export default defineConfig({
         outDir: "static/dist/",
         emptyOutDir: true,
         rolldownOptions: {
-            input: "assets/js/base.js",
+            input: {
+                base: "assets/js/base.js",
+                homepage: "assets/js/homepage.js",
+            },
             output: {
                 entryFileNames: "[name].js",
                 assetFileNames: "[name][extname]",
