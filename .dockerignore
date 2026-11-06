@@ -1,0 +1,7 @@
+__pycache__/
+node_modules/
+static/dist/
+
+.gitignore
+Dockerfile
+README.md

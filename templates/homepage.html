@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block head %}
+<script src="{{ url_for('static', filename='dist/homepage.js') }}" defer></script>
+{% endblock %}
+
+{% block content %}
+<div class="min-vh-100 p-4 d-flex justify-content-center align-items-center flex-column">
+    <div class="d-flex mb-4">
+        <img id="apple" src="{{ url_for('static', filename='images/apple.svg') }}" class="me-2">
+        <h1 class="d-flex align-items-center mb-0">Teach2Learn</h1>
+    </div>
+    <div class="w-50">
+        <div class="d-grid gap-3 mb-4">
+            <button type="button" class="nes-btn is-primary">Button</button>
+            <button type="button" class="nes-btn is-primary">Button</button>
+            <button type="button" class="nes-btn is-primary">Button</button>
+        </div>
+        <div class="row">
+            <div class="col d-grid">
+                <button type="button" class="nes-btn">Button</button>
+            </div>
+            <div class="col d-grid">
+                <button type="button" class="nes-btn">Button</button>
+            </div>
+        </div>
+    </div>
+    <p class="position-fixed bottom-0 start-0 mb-0 small p-2">Teach2Learn 0.0.1</p>
+    <p class="position-fixed bottom-0 end-0 mb-0 small p-2">
+        <a href="https://github.com/aizenbaidya/teach2learn" target="_blank" rel="noopener noreferrer">
+            <i class="nes-icon github"></i>
+        </a>
+    </p>
+</div>
+{% endblock %}

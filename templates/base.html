@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teach2Learn</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/base.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.webp') }}">
+    <link rel="preload" href="{{ url_for('static', filename='dist/press-start-2p-latin-400-normal.woff2') }}" as="font"
+        crossorigin>
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    {% block content %}{% endblock %}
+</body>
+
+</html>
