@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
+{% block head %}
+<script type="module" src="{{ url_for('static', filename='dist/teach.js') }}" defer></script>
+{% endblock %}
+
 {% block content %}
 <div class="min-vh-100 p-4 d-flex justify-content-center align-items-center flex-column">
-    <p>TEACHHHHHING TIMEEE!!!!!</p>
+    <div id="my-div"></div>
 </div>
 {% endblock %}

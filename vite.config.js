@@ -9,6 +9,7 @@ export default defineConfig({
             input: {
                 base: "assets/js/base.js",
                 homepage: "assets/js/homepage.js",
+                teach: "assets/js/teach.js",
             },
             output: {
                 entryFileNames: "[name].js",
