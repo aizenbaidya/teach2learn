@@ -6,3 +6,4 @@ static/dist/
 Dockerfile
 README.md
 .env
+.env.example
