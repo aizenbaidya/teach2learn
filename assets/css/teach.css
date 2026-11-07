@@ -1,3 +1,14 @@
+#user-input {
+    outline: none;
+    min-width: 16ch;
+    cursor: text;
+}
+
+.nes-balloon:has(#user-input[contenteditable="false"]) {
+    filter: brightness(0.9);
+    transition: 0.1s;
+}
+
 .message-list {
     display: flex;
     flex-direction: column;
