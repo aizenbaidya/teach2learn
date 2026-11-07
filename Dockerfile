@@ -10,4 +10,4 @@ WORKDIR /app
 COPY . /app
 COPY --from=frontend /app/static/dist/ ./static/dist/
 RUN pip install -r requirements.txt
-CMD ["flask", "run", "--host=0.0.0.0"]
+CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:5000"]
