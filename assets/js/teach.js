@@ -1,8 +1,10 @@
-const myDiv = document.getElementById("my-div");
+import "../css/teach.css";
 
-const response = await fetch("/api/chat", {
-    method: "POST",
-});
-const data = await response.json();
+// const myDiv = document.getElementById("my-div");
 
-myDiv.textContent = data.text;
+// const response = await fetch("/api/chat", {
+//     method: "POST",
+// });
+// const data = await response.json();
+
+// myDiv.textContent = data.text;

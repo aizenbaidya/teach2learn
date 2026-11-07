@@ -1,11 +1,28 @@
 {% extends "base.html" %}
 
 {% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='dist/teach.css') }}">
 <script type="module" src="{{ url_for('static', filename='dist/teach.js') }}" defer></script>
 {% endblock %}
 
 {% block content %}
-<div class="min-vh-100 p-4 d-flex justify-content-center align-items-center flex-column">
-    <div id="my-div"></div>
+<div class="min-vh-100 p-4 d-flex flex-column">
+    <section class="nes-container flex-grow-1">
+        <section class="message-list">
+            <section class="message -left w-75">
+                <i class="nes-bcrikko"></i>
+                <div class="nes-balloon from-left">
+                    <p>Hello!!</p>
+                </div>
+            </section>
+
+            <section class="message -right w-75">
+                <div class="nes-balloon from-right">
+                    <p>Hii!!</p>
+                </div>
+                <i class="nes-bcrikko"></i>
+            </section>
+        </section>
+    </section>
 </div>
 {% endblock %}

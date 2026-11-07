@@ -1,0 +1,20 @@
+.message-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.message {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+}
+
+.message.-right {
+    justify-content: flex-end;
+    align-self: flex-end;
+}
+
+.message > i {
+    flex-shrink: 0;
+}
