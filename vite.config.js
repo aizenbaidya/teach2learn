@@ -6,7 +6,10 @@ export default defineConfig({
         outDir: "static/dist/",
         emptyOutDir: true,
         rolldownOptions: {
-            input: "static/js/base.js",
+            input: {
+                base: "static/js/base.js",
+                "auth-base": "static/js/auth/auth-base.js",
+            },
             output: {
                 entryFileNames: "[name].js",
                 assetFileNames: "[name][extname]",

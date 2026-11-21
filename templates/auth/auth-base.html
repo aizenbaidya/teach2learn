@@ -3,6 +3,7 @@
 {% block title %}{{ page_name }}{% endblock %}
 
 {% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='dist/auth.css') }}">
 <script type="module" src="{{ url_for('static', filename='dist/auth-base.js') }}" defer></script>
 {% endblock %}
 
@@ -16,12 +17,13 @@
                 <input type="text" name="username" id="username" class="nes-input w-auto" autofocus required>
             </div>
             <div class="nes-field d-flex flex-column">
-                <label for="password">Password</label>
-                <div class="position-relative d-flex flex-column">
-                    <input type="password" name="password" id="password-input" class="nes-input w-auto" required>
+                <label for="password-input">Password</label>
+                <div class="nes-input w-auto d-flex align-items-center gap-2">
+                    <input type="password" name="password" id="password-input"
+                        class="border-0 bg-transparent p-0 flex-grow-1" required>
                     <button id="eye-button" type="button"
-                        class="border-0 p-0 bg-transparent me-1 position-absolute top-50 end-0 translate-middle-y m-0">
-                        <i id="eye-icon" class="nes-icon eye"></i>
+                        class="border-0 p-0 bg-transparent d-flex align-items-center">
+                        <i id="eye-icon" class="nes-icon eye is-small"></i>
                     </button>
                 </div>
             </div>
