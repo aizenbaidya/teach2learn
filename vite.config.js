@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
     build: {
-        outDir: "static/dist",
+        outDir: "static/dist/",
         emptyOutDir: true,
         rolldownOptions: {
             input: "static/js/base.js",
