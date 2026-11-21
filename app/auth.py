@@ -24,8 +24,16 @@ def signup():
         return redirect(url_for("homepage"))
 
     if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "").strip()
+
+        if not username:
+            flash("Username is required!")
+            return render_template("auth/signup.html")
+        elif not password:
+            flash("Password is required!")
+            return render_template("auth/signup.html")
+
         user = User(username=username, password=generate_password_hash(password))
 
         db.session.add(user)
