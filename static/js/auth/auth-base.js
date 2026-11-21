@@ -1,7 +1,11 @@
 const eyeButton = document.getElementById("eye-button");
-const passwordInput = document.getElementById("password-input");
 
 eyeButton.addEventListener("click", () => {
+    const passwordInput = document.getElementById("password-input");
+    const eyeIcon = document.getElementById("eye-icon");
     const show = passwordInput.type === "password";
+
     passwordInput.type = show ? "text" : "password";
+    eyeIcon.classList.toggle("eye", !show);
+    eyeIcon.classList.toggle("eye-slash", show);
 });

@@ -30,6 +30,9 @@ services:
                 - action: sync
                   path: ./templates
                   target: /app/templates
+                - action: sync
+                  path: ./static/dist
+                  target: /app/static/dist
 
 volumes:
     mydb:
