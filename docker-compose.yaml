@@ -1,17 +1,31 @@
 services:
     mydb:
+        container_name: mydb
         image: postgres:18
         environment:
             POSTGRES_DB: mydb
             POSTGRES_PASSWORD: dev
         ports:
             - "5432:5432"
+        volumes:
+            - mydb:/var/lib/postgresql
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres -d mydb"]
+            interval: 2s
+            timeout: 4s
+            retries: 8
 
     app:
+        container_name: app
         build: .
         env_file:
             - .env
         ports:
             - "8000:8000"
         depends_on:
-            - mydb
+            mydb:
+                condition: service_healthy
+
+volumes:
+    mydb:
+        name: mydb
