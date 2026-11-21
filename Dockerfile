@@ -1,11 +1,14 @@
-FROM python:3.12-slim
-
+FROM node:22-slim AS assets
 WORKDIR /app
+COPY package-lock.json package.json vite.config.js ./
+RUN npm ci
+COPY static ./static
+RUN npm run build
 
+FROM python:3.12-slim
+WORKDIR /app
 COPY . .
-
+COPY --from=assets /app/static/dist ./static/dist
 RUN pip install -r requirements.txt
-
 EXPOSE 8000
-
 CMD ["gunicorn", "--preload", "-w", "4", "-b", "0.0.0.0:8000", "__init__:create_app()"]
