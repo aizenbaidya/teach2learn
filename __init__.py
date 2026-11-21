@@ -16,6 +16,11 @@ def create_app():
     def homepage():
         return render_template("homepage.html")
 
+    import models
+
+    with app.app_context():
+        db.create_all()
+
     import auth
 
     app.register_blueprint(auth.bp)
