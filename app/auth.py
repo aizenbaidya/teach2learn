@@ -54,24 +54,30 @@ def login():
     if g.user:
         return redirect(url_for("homepage"))
 
+    errors = dict()
+
     if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "")
 
-        user = db.session.execute(
-            db.select(User).filter_by(username=username)
-        ).scalar_one_or_none()
+        if not username:
+            errors["username"] = "Required!"
+        if not password:
+            errors["username"] = "Required!"
 
-        if user is None or not check_password_hash(user.password, password):
-            flash("Username or password is invalid!")
-            return render_template("auth/login.html")
+        if not errors:
+            user = db.session.execute(
+                db.select(User).filter_by(username=username)
+            ).scalar_one_or_none()
 
-        session.clear()
-        session["user_id"] = user.id
+            if user is None or not check_password_hash(user.password, password):
+                errors["password"] = "Invalid!"
+            else:
+                session.clear()
+                session["user_id"] = user.id
+                return redirect(url_for("homepage"))
 
-        return redirect(url_for("homepage"))
-
-    return render_template("auth/login.html")
+    return render_template("auth/login.html", errors=errors)
 
 
 @bp.route("/logout")

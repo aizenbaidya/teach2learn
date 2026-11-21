@@ -13,16 +13,22 @@
         <h1 class="mb-4">{{ page_name }}</h1>
         <form id="auth-form" method="post" class="d-flex flex-column gap-4 mb-0" novalidate>
             <div class="nes-field d-flex flex-column">
-                <label for="username" class="d-flex">Username<span id="username-error"
-                        class="error-text nes-text is-error d-none text-end ms-auto">Required!</span></label>
-                <input type="text" name="username" id="username-input" class="nes-input w-auto" autofocus required>
+                <label for="username-input" class="d-flex">Username<span id="username-error"
+                        class="error-text nes-text is-error {{ '' if errors.username else 'd-none' }} text-end ms-auto">{{
+                        errors.username or "Required!"
+                        }}</span></label>
+                <input type="text" name="username" id="username-input" class="nes-input w-auto"
+                    value="{{ request.form.get('username', '') }}" autofocus required>
             </div>
             <div class="nes-field d-flex flex-column">
                 <label for="password-input" class="d-flex">Password<span id="password-error"
-                        class="error-text nes-text is-error d-none ms-auto">Required!</span></label>
+                        class="error-text nes-text is-error {{ '' if errors.password else 'd-none' }} ms-auto">{{
+                        errors.password or "Required!"
+                        }}</span></label>
                 <div id="password-div" class="nes-input w-auto d-flex align-items-center gap-2">
                     <input type="password" name="password" id="password-input"
-                        class="border-0 bg-transparent p-0 flex-grow-1 me-3" required>
+                        class="border-0 bg-transparent p-0 flex-grow-1 me-3"
+                        value="{{ request.form.get('password', '') }}" required>
                     <button id="eye-button" type="button" class="border-0 p-0 bg-transparent d-flex align-items-center">
                         <i id="eye-icon" class="nes-icon eye is-small"></i>
                     </button>
@@ -31,12 +37,12 @@
             </div>
             <button type="submit" class="nes-btn is-primary">{{ page_name }}</button>
         </form>
-        {% with messages = get_flashed_messages() %}
+        <!-- {% with messages = get_flashed_messages() %}
         {% for message in messages %}
-        <p id="flashed-messages mt-2">{{ message }}</p>
+        <p id="flashed-messages" class="mt-2"">{{ message }}</p>
         {% endfor %}
-        {% endwith %}
-        <p class="mt-auto mb-0">{% block footer %}{% endblock %}</p>
+        {% endwith %} -->
+        <p class=" mt-auto mb-0">{% block footer %}{% endblock %}</p>
     </div>
 </div>
 {% endblock %}

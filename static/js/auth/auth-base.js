@@ -13,47 +13,47 @@ if (eyeButton) {
     });
 }
 
-function setError(box, message, hasError) {
-    box.classList.toggle("is-error", hasError);
-    message.classList.toggle("d-none", !hasError);
-}
+// function setError(box, message, hasError) {
+//     box.classList.toggle("is-error", hasError);
+//     message.classList.toggle("d-none", !hasError);
+// }
 
-const authForm = document.getElementById("auth-form");
-if (authForm) {
-    const usernameInput = document.getElementById("username-input");
-    const passwordInput = document.getElementById("password-input");
-    const passwordDiv = document.getElementById("password-div");
-    const usernameError = document.getElementById("username-error");
-    const passwordError = document.getElementById("password-error");
-    const flashedMessages = document.getElementById("flashed-messages");
+// const authForm = document.getElementById("auth-form");
+// if (authForm) {
+//     const usernameInput = document.getElementById("username-input");
+//     const passwordInput = document.getElementById("password-input");
+//     const passwordDiv = document.getElementById("password-div");
+//     const usernameError = document.getElementById("username-error");
+//     const passwordError = document.getElementById("password-error");
+//     const flashedMessages = document.getElementById("flashed-messages");
 
-    authForm.addEventListener("submit", (event) => {
-        flashedMessages.textContent = "";
+//     authForm.addEventListener("submit", (event) => {
+//         flashedMessages.textContent = "";
 
-        const usernameValid = usernameInput.checkValidity();
-        const passwordValid = passwordInput.checkValidity();
+//         const usernameValid = usernameInput.checkValidity();
+//         const passwordValid = passwordInput.checkValidity();
 
-        setError(usernameInput, usernameError, !usernameValid);
-        setError(passwordDiv, passwordError, !passwordValid);
+//         setError(usernameInput, usernameError, !usernameValid);
+//         setError(passwordDiv, passwordError, !passwordValid);
 
-        if (!usernameValid) {
-            event.preventDefault();
-            usernameInput.focus();
-        } else if (!passwordValid) {
-            event.preventDefault();
-            passwordInput.focus();
-        }
-    });
+//         if (!usernameValid) {
+//             event.preventDefault();
+//             usernameInput.focus();
+//         } else if (!passwordValid) {
+//             event.preventDefault();
+//             passwordInput.focus();
+//         }
+//     });
 
-    usernameInput.addEventListener("input", () => {
-        if (usernameInput.checkValidity()) {
-            setError(usernameInput, usernameError, false);
-        }
-    });
+//     usernameInput.addEventListener("input", () => {
+//         if (usernameInput.checkValidity()) {
+//             setError(usernameInput, usernameError, false);
+//         }
+//     });
 
-    passwordInput.addEventListener("input", () => {
-        if (passwordInput.checkValidity()) {
-            setError(passwordDiv, passwordError, false);
-        }
-    });
-}
+//     passwordInput.addEventListener("input", () => {
+//         if (passwordInput.checkValidity()) {
+//             setError(passwordDiv, passwordError, false);
+//         }
+//     });
+// }

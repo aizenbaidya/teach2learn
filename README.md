@@ -3,6 +3,9 @@
 To run the app use:\
 `./run.sh`
 
+Open Postgres command line for mydb:\
+`docker exec -it mydb psql -U postgres mydb`
+
 ## Thank you!!
 
 These super cool projects help make Teach2Learn possible :))
