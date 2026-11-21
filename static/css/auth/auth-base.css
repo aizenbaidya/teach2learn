@@ -1,3 +1,13 @@
 .nes-input input {
     min-width: 0;
 }
+
+.nes-input:focus,
+.nes-input input:focus {
+    outline: none;
+}
+
+#eye-icon {
+    transform: scale(1.5);
+    transform-origin: center;
+}
