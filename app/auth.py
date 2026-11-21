@@ -12,8 +12,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.exc import IntegrityError
 import functools
 
-from db import db
-from models import User
+from .db import db
+from .models import User
 
 bp = Blueprint("auth", __name__)
 
