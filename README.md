@@ -5,6 +5,7 @@ To run the app use:\
 
 ## Thank you!!
 
-These super cool projects make Teach2Learn possible :))
+These super cool projects help make Teach2Learn possible :))
 
 - [NES.css](https://github.com/nostalgic-css/NES.css)
+- [NES.icons](https://github.com/nostalgic-css/NES.icons)
