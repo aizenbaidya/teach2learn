@@ -6,6 +6,6 @@ COPY . .
 
 RUN pip install -r requirements.txt
 
-CMD ["flask", "run", "--host=0.0.0.0"]
+EXPOSE 8000
 
-EXPOSE 5000
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "app:app"]
