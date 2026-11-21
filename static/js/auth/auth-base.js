@@ -25,8 +25,11 @@ if (authForm) {
     const passwordDiv = document.getElementById("password-div");
     const usernameError = document.getElementById("username-error");
     const passwordError = document.getElementById("password-error");
+    const flashedMessages = document.getElementById("flashed-messages");
 
     authForm.addEventListener("submit", (event) => {
+        flashedMessages.textContent = "";
+
         const usernameValid = usernameInput.checkValidity();
         const passwordValid = passwordInput.checkValidity();
 

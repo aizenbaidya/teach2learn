@@ -25,7 +25,7 @@ def signup():
 
     if request.method == "POST":
         username = request.form.get("username", "").strip()
-        password = request.form.get("password", "").strip()
+        password = request.form.get("password", "")
 
         if not username:
             flash("Username is required!")
@@ -41,7 +41,7 @@ def signup():
             db.session.commit()
         except IntegrityError:
             db.session.rollback()
-            flash("This username is already taken!")
+            flash("Username taken!")
             return render_template("auth/signup.html")
 
         return redirect(url_for("auth.login"))
