@@ -13,12 +13,13 @@
         <h1 class="mb-4">{{ page_name }}</h1>
         <form id="auth-form" method="post" class="d-flex flex-column flex-grow-1 gap-4" novalidate>
             <div class="nes-field d-flex flex-column">
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username" class="nes-input w-auto" autofocus required>
-                <span id="username-error" class="error-text nes-text is-error d-none">Username is required!</span>
+                <label for="username" class="d-flex">Username<span id="username-error"
+                        class="error-text nes-text is-error d-none text-end ms-auto">Required!</span></label>
+                <input type="text" name="username" id="username-input" class="nes-input w-auto" autofocus required>
             </div>
             <div class="nes-field d-flex flex-column">
-                <label for="password-input">Password</label>
+                <label for="password-input" class="d-flex">Password<span id="password-error"
+                        class="error-text nes-text is-error d-none ms-auto">Required!</span></label>
                 <div id="password-div" class="nes-input w-auto d-flex align-items-center gap-2">
                     <input type="password" name="password" id="password-input"
                         class="border-0 bg-transparent p-0 flex-grow-1 me-3" required>
@@ -26,7 +27,7 @@
                         <i id="eye-icon" class="nes-icon eye is-small"></i>
                     </button>
                 </div>
-                <span id="password-error" class="error-text nes-text is-error d-none">Password is required!</span>
+
             </div>
             <button type="submit" class="nes-btn is-primary">{{ page_name }}</button>
         </form>

@@ -20,8 +20,9 @@ function setError(box, message, hasError) {
 
 const authForm = document.getElementById("auth-form");
 if (authForm) {
-    const usernameInput = document.getElementById("username");
-    const passwordInput = document.getElementById("password");
+    const usernameInput = document.getElementById("username-input");
+    const passwordInput = document.getElementById("password-input");
+    const passwordDiv = document.getElementById("password-div");
     const usernameError = document.getElementById("username-error");
     const passwordError = document.getElementById("password-error");
 
@@ -30,7 +31,7 @@ if (authForm) {
         const passwordValid = passwordInput.checkValidity();
 
         setError(usernameInput, usernameError, !usernameValid);
-        setError(passwordInput, passwordError, !passwordValid);
+        setError(passwordDiv, passwordError, !passwordValid);
 
         if (!usernameValid) {
             event.preventDefault();
@@ -49,7 +50,7 @@ if (authForm) {
 
     passwordInput.addEventListener("input", () => {
         if (passwordInput.checkValidity()) {
-            setError(passwordInput, passwordError, false);
+            setError(passwordDiv, passwordError, false);
         }
     });
 }
