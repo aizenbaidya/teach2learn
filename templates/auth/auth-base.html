@@ -14,18 +14,20 @@
         <form id="auth-form" method="post" class="d-flex flex-column gap-4 mb-0" novalidate>
             <div class="nes-field d-flex flex-column">
                 <label for="username-input" class="d-flex">Username<span id="username-error"
-                        class="error-text nes-text is-error {{ '' if errors.username else 'd-none' }} text-end ms-auto">{{
-                        errors.username or "Required!"
+                        class="error-text nes-text is-error {{ 'd-none' if not errors.username else '' }} text-end ms-auto">{{
+                        errors.username
                         }}</span></label>
-                <input type="text" name="username" id="username-input" class="nes-input w-auto"
+                <input type="text" name="username" id="username-input"
+                    class="nes-input w-auto {{ 'is-error' if errors.username else '' }}"
                     value="{{ request.form.get('username', '') }}" autofocus required>
             </div>
             <div class="nes-field d-flex flex-column">
                 <label for="password-input" class="d-flex">Password<span id="password-error"
-                        class="error-text nes-text is-error {{ '' if errors.password else 'd-none' }} ms-auto">{{
-                        errors.password or "Required!"
+                        class="error-text nes-text is-error {{ 'd-none' if not errors.password else '' }} ms-auto">{{
+                        errors.password
                         }}</span></label>
-                <div id="password-div" class="nes-input w-auto d-flex align-items-center gap-2">
+                <div id="password-div"
+                    class="nes-input w-auto d-flex align-items-center gap-2 {{ 'is-error' if errors.password else '' }}">
                     <input type="password" name="password" id="password-input"
                         class="border-0 bg-transparent p-0 flex-grow-1 me-3"
                         value="{{ request.form.get('password', '') }}" required>

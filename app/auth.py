@@ -31,9 +31,11 @@ def signup():
 
         if not username:
             errors["username"] = "Required!"
-            return render_template("auth/signup.html", errors=errors)
-        elif not password:
+            # return render_template("auth/signup.html", errors=errors)
+        if not password:
             errors["password"] = "Required!"
+
+        if not username or not password:
             return render_template("auth/signup.html", errors=errors)
 
         user = User(username=username, password=generate_password_hash(password))
