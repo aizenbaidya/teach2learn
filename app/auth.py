@@ -2,7 +2,7 @@ from flask import (
     Blueprint,
     render_template,
     request,
-    flash,
+    # flash,
     redirect,
     session,
     url_for,
@@ -31,10 +31,10 @@ def signup():
 
         if not username:
             errors["username"] = "Required!"
-            return render_template("auth/signup.html")
+            return render_template("auth/signup.html", errors=errors)
         elif not password:
             errors["password"] = "Required!"
-            return render_template("auth/signup.html")
+            return render_template("auth/signup.html", errors=errors)
 
         user = User(username=username, password=generate_password_hash(password))
 
@@ -44,7 +44,7 @@ def signup():
         except IntegrityError:
             db.session.rollback()
             errors["username"] = "Invalid!"
-            return render_template("auth/signup.html")
+            return render_template("auth/signup.html", errors=errors)
 
         return redirect(url_for("auth.login"))
 
