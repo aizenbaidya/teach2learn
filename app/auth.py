@@ -2,7 +2,6 @@ from flask import (
     Blueprint,
     render_template,
     request,
-    # flash,
     redirect,
     session,
     url_for,
@@ -31,7 +30,6 @@ def signup():
 
         if not username:
             errors["username"] = "Required!"
-            # return render_template("auth/signup.html", errors=errors)
         if not password:
             errors["password"] = "Required!"
 
@@ -81,15 +79,19 @@ def login():
             else:
                 session.clear()
                 session["user_id"] = user.id
+                session.permanent = True  # Overwrite this w/ app.config value
                 return redirect(url_for("homepage"))
 
     return render_template("auth/login.html", errors=errors)
 
 
-@bp.route("/logout")
+@bp.route("/logout", methods=("GET", "POST"))
 def logout():
-    session.clear()
-    return redirect(url_for("auth.login"))
+    if request.method == "POST":
+        session.clear()
+        return redirect(url_for("auth.login"))
+
+    return redirect(url_for("homepage"))
 
 
 @bp.before_app_request
