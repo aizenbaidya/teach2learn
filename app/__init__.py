@@ -20,14 +20,14 @@ def create_app():
     def homepage():
         return render_template("homepage.html")
 
-    import app.models as models
-
     with app.app_context():
         db.create_all()
         db.engine.dispose()
 
     import app.auth as auth
+    import app.teach as teach
 
     app.register_blueprint(auth.bp)
+    app.register_blueprint(teach.bp)
 
     return app
