@@ -17,15 +17,19 @@
         </div>
         {% endif %}
 
-        <div class="d-flex gap-4 my-auto">
-            <div class="nes-container with-title is-centered w-50">
+        <div class="d-grid gap-4 my-auto" style="grid-template-columns: 1fr 1fr;">
+            <div class="nes-container with-title is-centered">
                 <p class="title">Teach</p>
                 <a type="button" class="nes-btn is-primary" href="{{ url_for('teach.index') }}">I want to
                     teach!</a>
             </div>
-            <div class="nes-container with-title is-centered w-50">
+            <div class="nes-container with-title is-centered">
                 <p class="title">Learn</p>
                 <button type="button" class="nes-btn">I want to learn!</button>
+            </div>
+            <div class="nes-container with-title is-centered">
+                <p class="title">Reflect</p>
+                <button type="button" class="nes-btn">I want to reflect!</button>
             </div>
         </div>
 
