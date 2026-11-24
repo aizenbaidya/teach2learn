@@ -9,6 +9,7 @@ export default defineConfig({
             input: {
                 base: "static/js/base.js",
                 "auth-base": "static/js/auth/auth-base.js",
+                index: "static/js/teach/index.js",
             },
             output: {
                 entryFileNames: "[name].js",
