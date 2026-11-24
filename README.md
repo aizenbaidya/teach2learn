@@ -8,8 +8,8 @@ Open the Postgres command line for mydb:\
 `docker exec -it mydb psql -U postgres mydb`
 
 ## In the literature...
-- SIGCSE 2027 (coming soon...)
-- [SIGCSE 2026](https://doi.org/10.1145/3770761.3777348)
+- SIGCSE TS 2027 (coming soon...)
+- [SIGCSE TS 2026](https://doi.org/10.1145/3770761.3777348)
 
 ## Thank you!!
 
