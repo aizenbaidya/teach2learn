@@ -1,10 +1,14 @@
 # Teach2Learn
 
-To run the app use:\
+## Helpful commands
+To run the app, use:\
 `./run.sh`
 
-Open Postgres command line for mydb:\
+Open the Postgres command line for mydb:\
 `docker exec -it mydb psql -U postgres mydb`
+
+## In the literature...
+- [SIGCSE 2026](https://doi.org/10.1145/3770761.3777348)
 
 ## Thank you!!
 
