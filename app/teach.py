@@ -1,13 +1,25 @@
-from flask import Blueprint, render_template, jsonify, request, g
+from flask import Blueprint, render_template, jsonify, request, g, redirect, url_for
 import anthropic
 
 from .auth import login_required
 from .db import db
-from .models import Conversation, Message, utcnow
-from .utils import get_file_contents
+from .models import Conversation, Message
+from .utils import get_file_contents, utcnow
 
 bp = Blueprint("teach", __name__, url_prefix="/teach")
 client = anthropic.Anthropic()
+
+
+@bp.route("/end", methods=("POST",))
+@login_required
+def end():
+    db.session.execute(
+        db.update(Conversation)
+        .where(Conversation.user_id == g.user.id, Conversation.ended_at.is_(None))
+        .values(ended_at=utcnow())
+    )
+    db.session.commit()
+    return redirect(url_for("homepage"))
 
 
 @bp.route("")

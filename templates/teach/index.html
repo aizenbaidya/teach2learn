@@ -12,7 +12,9 @@
     <div class="nes-container h-100 d-flex flex-column position-relative">
         <div class="position-absolute top-0 end-0 m-4 d-flex align-items-center gap-3">
             <span>00:00</span>
-            <button type="button" class="nes-btn is-error">End</button>
+            <form method="post" action="{{ url_for('teach.end') }}" class="m-0">
+                <button type="submit" class="nes-btn is-error">End</button>
+            </form>
         </div>
         <section class="message-list h-100">
             <section class="message -left">
