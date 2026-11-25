@@ -1,0 +1,8 @@
+<section>
+    <dialog class="nes-dialog is-rounded w-75 h-75" id="{% block id %}{% endblock %}">
+        <form method="dialog">
+            <p class="title">{% block title %}{% endblock %}</p>
+            {% block content %}{% endblock %}
+        </form>
+    </dialog>
+</section>

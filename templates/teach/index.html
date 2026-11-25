@@ -30,15 +30,16 @@
                 <i class="nes-bcrikko"></i>
             </section>
             <div class="position-absolute bottom-0 start-0 m-4 d-flex flex-column align-items-center gap-2">
-                <button type="button" class="nes-btn">
+                <button id="todo-list-button" type="button" class="nes-btn">
                     <i class="nes-icon file"></i>
                 </button>
-                <button id="knowledge-graph-button"="button" class="nes-btn">
+                <button id="knowledge-graph-button" type="button" class="nes-btn">
                     <i class="nes-icon cloud"></i>
                 </button>
             </div>
         </section>
     </div>
 </div>
+{% include "teach/todo-list-dialog.html" %}
 {% include "teach/knowledge-graph-dialog.html" %}
 {% endblock %}

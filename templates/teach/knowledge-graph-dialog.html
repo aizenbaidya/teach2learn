@@ -1,12 +1,8 @@
-<section>
-    <dialog class="nes-dialog is-rounded" id="knowledge-graph-dialog">
-        <form method="dialog">
-            <p class="title">Rounded dialog</p>
-            <p>Alert: this is a dialog.</p>
-            <menu class="dialog-menu">
-                <button class="nes-btn">Cancel</button>
-                <button class="nes-btn is-primary">Confirm</button>
-            </menu>
-        </form>
-    </dialog>
-</section>
+{% extends "teach/dialog-base.html" %}
+{% block id %}knowledge-graph-dialog{% endblock %}
+{% block title %}Knowledge Graph{% endblock %}
+
+{% block content %}
+<p>Hellooo!!!</p>
+<button class="nes-btn is-primary">Ok</button>
+{% endblock %}
