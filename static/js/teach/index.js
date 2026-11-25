@@ -21,7 +21,7 @@ async function sendMessage() {
     if (!response.ok) throw new Error(response.status);
 
     const data = await response.json();
-    syncTimer(data.remaining);
+    syncTimer(data.remaining_seconds);
 
     return data.output_text;
 }
