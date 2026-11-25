@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, request
 from dotenv import load_dotenv
 from datetime import timedelta
 import os
@@ -32,5 +32,15 @@ def create_app():
 
     app.register_blueprint(auth.bp)
     app.register_blueprint(teach.bp)
+
+    CANONICAL_HOST = os.getenv("CANONICAL_HOST")
+
+    @app.before_request
+    def redirect_to_canonical_host():
+        if CANONICAL_HOST and request.host.endswith(".up.railway.app"):
+            url = request.url.replace(request.host, CANONICAL_HOST, 1).replace(
+                "http://", "https://", 1
+            )
+            return redirect(url, code=308)
 
     return app
