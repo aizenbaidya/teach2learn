@@ -21,7 +21,6 @@ async function sendMessage() {
     if (!response.ok) throw new Error(response.status);
 
     const data = await response.json();
-    syncTimer(data.remaining_seconds);
 
     return data.output_text;
 }
@@ -59,13 +58,18 @@ function syncTimer(remainingSeconds) {
     endsAt = Date.now() + remainingSeconds * 1000;
 }
 
+let lastShown = null;
+
 const timerInterval = setInterval(() => {
     if (endsAt === null) return;
     const left = Math.max(0, Math.ceil((endsAt - Date.now()) / 1000));
-    timer.textContent = formatTime(left);
+    if (left !== lastShown) {
+        timer.textContent = formatTime(left);
+        lastShown = left;
+    }
     if (left === 0) {
         clearInterval(timerInterval);
         teacherInput.disabled = true;
         endForm.submit();
     }
-}, 1000);
+}, 250);
