@@ -111,7 +111,32 @@ async function loadKnowledgeGraph() {
                 container: kgContainer,
                 elements,
                 style: [
-                    /* your styles */
+                    {
+                        selector: "node",
+                        style: {
+                            label: "data(label)",
+                            "background-color": "#209cee",
+                            "font-family": "'Press Start 2P'",
+                            "font-size": 8,
+                            "text-valign": "bottom",
+                            "text-margin-y": 4,
+                        },
+                    },
+                    {
+                        selector: "edge",
+                        style: {
+                            label: "data(label)",
+                            "curve-style": "bezier",
+                            "target-arrow-shape": "triangle",
+                            width: 2,
+                            "line-color": "#999",
+                            "target-arrow-color": "#999",
+                            "font-size": 6,
+                            "text-rotation": "autorotate",
+                            "text-background-color": "#fff",
+                            "text-background-opacity": 1,
+                        },
+                    },
                 ],
             });
         } else {

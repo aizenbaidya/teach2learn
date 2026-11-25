@@ -1,3 +1,5 @@
+docker compose down;
+
 npm run build;
 
 npx vite build --watch &
