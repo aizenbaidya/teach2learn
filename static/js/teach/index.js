@@ -99,7 +99,7 @@ async function loadKnowledgeGraph() {
         return;
     }
 
-    kgStatus.textContent = "Loading...";
+    kgStatus.textContent = "Simmering...";
     const response = await fetch("/teach/knowledge-graph");
     if (!response.ok) {
         kgStatus.textContent = `Error: ${response.status}`;
