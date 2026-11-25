@@ -2,6 +2,10 @@
 
 {% block title %}Teach{% endblock %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='dist/teach-index.css') }}">
+{% endblock %}
+
 {% block content %}
 <div class="vh-100 p-4">
     <div class="nes-container h-100 d-flex flex-column">
