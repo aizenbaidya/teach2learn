@@ -108,7 +108,7 @@ async function loadKnowledgeGraph() {
                         style: {
                             label: "data(label)",
                             "background-color": "#305CDE",
-                            "font-family": "'Press Start 2P'",
+                            "font-family": '"Press Start 2P"',
                             "font-size": 8,
                             "text-valign": "bottom",
                             "text-margin-y": 4,
@@ -118,7 +118,7 @@ async function loadKnowledgeGraph() {
                         selector: "edge",
                         style: {
                             label: "data(label)",
-                            "font-family": "'Press Start 2P'",
+                            "font-family": '"Press Start 2P"',
                             "curve-style": "bezier",
                             "target-arrow-shape": "triangle",
                             width: 2,
