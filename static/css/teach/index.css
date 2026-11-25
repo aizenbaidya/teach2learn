@@ -3,6 +3,13 @@
     overflow: hidden;
     resize: none;
     cursor: text;
+    background-color: transparent;
+}
+
+#teacher-input-div:has(#teacher-input:disabled),
+#teacher-input-div:has(#teacher-input:disabled)::before,
+#teacher-input-div:has(#teacher-input:disabled)::after {
+    background-color: #ebebeb;
 }
 
 section.message-list {
