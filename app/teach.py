@@ -16,8 +16,6 @@ client = anthropic.Anthropic()
 SESSION_SECONDS = 10 * 60
 
 
-# @bp.route("/create-knowledge-graph", methods=("POST",))
-# @login_required
 def create_knowledge_graph():
     text = """
     Marie Curie, 7 November 1867 – 4 July 1934, was a Polish and naturalized-French physicist and chemist who conducted pioneering research on radioactivity.
@@ -32,6 +30,39 @@ def create_knowledge_graph():
     graph_documents = transformer.convert_to_graph_documents(documents)
     print(graph_documents)
     return graph_documents
+
+
+def graph_documents_to_elements(graph_documents):
+    nodes = {}
+    edges = []
+    for doc in graph_documents:
+        for node in doc.nodes:
+            nodes[node.id] = {
+                "data": {"id": node.id, "label": node.id, "type": node.type}
+            }
+        for rel in doc.relationships:
+            for n in (rel.source, rel.target):
+                nodes.setdefault(
+                    n.id, {"data": {"id": n.id, "label": n.id, "type": n.type}}
+                )
+            edges.append(
+                {
+                    "data": {
+                        "id": f"{rel.source.id}-{rel.type}-{rel.target.id}",
+                        "source": rel.source.id,
+                        "target": rel.target.id,
+                        "label": rel.type,
+                    }
+                }
+            )
+    return list(nodes.values()) + edges
+
+
+@bp.route("/knowledge-graph")
+@login_required
+def knowledge_graph():
+    graph_documents = create_knowledge_graph()
+    return jsonify(elements=graph_documents_to_elements(graph_documents))
 
 
 @bp.route("/end", methods=("POST",))

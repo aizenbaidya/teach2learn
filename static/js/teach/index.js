@@ -1,3 +1,5 @@
+import cytoscape from "cytoscape";
+
 import "../../css/teach/index.css";
 
 const teacherInput = document.getElementById("teacher-input");
@@ -76,10 +78,72 @@ const timerInterval = setInterval(() => {
     }
 }, 250);
 
+// const kgButton = document.getElementById("knowledge-graph-button");
+// const kgDialog = document.getElementById("knowledge-graph-dialog");
+// kgButton.addEventListener("click", () => kgDialog.showModal());
+
+// const todoListButton = document.getElementById("todo-list-button");
+// const todoListDialog = document.getElementById("todo-list-dialog");
+// todoListButton.addEventListener("click", () => todoListDialog.showModal());
+
 const kgButton = document.getElementById("knowledge-graph-button");
 const kgDialog = document.getElementById("knowledge-graph-dialog");
-kgButton.addEventListener("click", () => kgDialog.showModal());
+const kgContainer = document.getElementById("knowledge-graph");
+const kgStatus = document.getElementById("knowledge-graph-status");
+let cy = null;
 
-const todoListButton = document.getElementById("todo-list-button");
-const todoListDialog = document.getElementById("todo-list-dialog");
-todoListButton.addEventListener("click", () => todoListDialog.showModal());
+async function loadKnowledgeGraph() {
+    if (cy) {
+        cy.resize();
+        cy.fit();
+        return;
+    }
+
+    kgStatus.textContent = "Loading...";
+    const response = await fetch("/teach/knowledge-graph");
+    if (!response.ok) {
+        kgStatus.textContent = `Error: ${response.status}`;
+        return;
+    }
+    const data = await response.json();
+    kgStatus.textContent = "";
+
+    cy = cytoscape({
+        container: kgContainer,
+        elements: data.elements,
+        style: [
+            {
+                selector: "node",
+                style: {
+                    label: "data(label)",
+                    "background-color": "#209cee",
+                    "font-family": "'Press Start 2P'",
+                    "font-size": 8,
+                    "text-valign": "bottom",
+                    "text-margin-y": 4,
+                },
+            },
+            {
+                selector: "edge",
+                style: {
+                    label: "data(label)",
+                    "curve-style": "bezier",
+                    "target-arrow-shape": "triangle",
+                    width: 2,
+                    "line-color": "#999",
+                    "target-arrow-color": "#999",
+                    "font-size": 6,
+                    "text-rotation": "autorotate",
+                    "text-background-color": "#fff",
+                    "text-background-opacity": 1,
+                },
+            },
+        ],
+        layout: { name: "cose", animate: false, padding: 20 },
+    });
+}
+
+kgButton.addEventListener("click", async () => {
+    kgDialog.showModal();
+    await loadKnowledgeGraph();
+});
