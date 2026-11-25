@@ -91,56 +91,42 @@ const kgDialog = document.getElementById("knowledge-graph-dialog");
 const kgContainer = document.getElementById("knowledge-graph");
 const kgStatus = document.getElementById("knowledge-graph-status");
 let cy = null;
+let kgLoading = false;
 
 async function loadKnowledgeGraph() {
-    if (cy) {
+    if (kgLoading) return;
+    kgLoading = true;
+    kgStatus.textContent = "Updating...";
+
+    try {
+        const response = await fetch("/teach/knowledge-graph");
+        if (!response.ok) {
+            kgStatus.textContent = `Error: ${response.status}`;
+            return;
+        }
+        const { elements } = await response.json();
+
+        if (!cy) {
+            cy = cytoscape({
+                container: kgContainer,
+                elements,
+                style: [
+                    /* your styles */
+                ],
+            });
+        } else {
+            cy.json({ elements }); // adds new elements, keeps existing ones by id
+        }
+        cy.layout({ name: "cose", animate: false, padding: 20 }).run();
         cy.resize();
         cy.fit();
-        return;
-    }
 
-    kgStatus.textContent = "Simmering...";
-    const response = await fetch("/teach/knowledge-graph");
-    if (!response.ok) {
-        kgStatus.textContent = `Error: ${response.status}`;
-        return;
+        kgStatus.textContent = elements.length
+            ? ""
+            : "Teach me something first!";
+    } finally {
+        kgLoading = false;
     }
-    const data = await response.json();
-    kgStatus.textContent = "";
-
-    cy = cytoscape({
-        container: kgContainer,
-        elements: data.elements,
-        style: [
-            {
-                selector: "node",
-                style: {
-                    label: "data(label)",
-                    "background-color": "#209cee",
-                    "font-family": "'Press Start 2P'",
-                    "font-size": 8,
-                    "text-valign": "bottom",
-                    "text-margin-y": 4,
-                },
-            },
-            {
-                selector: "edge",
-                style: {
-                    label: "data(label)",
-                    "curve-style": "bezier",
-                    "target-arrow-shape": "triangle",
-                    width: 2,
-                    "line-color": "#999",
-                    "target-arrow-color": "#999",
-                    "font-size": 6,
-                    "text-rotation": "autorotate",
-                    "text-background-color": "#fff",
-                    "text-background-opacity": 1,
-                },
-            },
-        ],
-        layout: { name: "cose", animate: false, padding: 20 },
-    });
 }
 
 kgButton.addEventListener("click", async () => {

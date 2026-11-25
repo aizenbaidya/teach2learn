@@ -7,29 +7,47 @@ from langchain_neo4j import LLMGraphTransformer
 
 from .auth import login_required
 from .db import db
-from .models import Conversation, Message
+from .models import Conversation, Message, KnowledgeGraph
 from .utils import get_file_contents, utcnow
 
 bp = Blueprint("teach", __name__, url_prefix="/teach")
 client = anthropic.Anthropic()
+transformer = LLMGraphTransformer(llm=ChatOpenAI(model="gpt-6.2-astra"))
 
 SESSION_SECONDS = 10 * 60
 
 
-def create_knowledge_graph():
-    text = """
-    Marie Curie, 7 November 1867 – 4 July 1934, was a Polish and naturalized-French physicist and chemist who conducted pioneering research on radioactivity.
-    She was the first woman to win a Nobel Prize, the first person to win a Nobel Prize twice, and the only person to win a Nobel Prize in two scientific fields.
-    Her husband, Pierre Curie, was a co-winner of her first Nobel Prize, making them the first-ever married couple to win the Nobel Prize and launching the Curie family legacy of five Nobel Prizes.
-    She was, in 1906, the first woman to become a professor at the University of Paris.
-    Also, Robin Williams.
-    """
-    documents = [Document(page_content=text)]
-    llm = ChatOpenAI(model="gpt-6.2-astra")
-    transformer = LLMGraphTransformer(llm=llm)
-    graph_documents = transformer.convert_to_graph_documents(documents)
-    print(graph_documents)
-    return graph_documents
+def extract_graph_documents(text):
+    return transformer.convert_to_graph_documents([Document(page_content=text)])
+
+
+def merge_elements(existing, new):
+    seen = {el["data"]["id"] for el in existing}
+    merged = list(existing)
+    for el in new:
+        if el["data"]["id"] not in seen:
+            merged.append(el)
+            seen.add(el["data"]["id"])
+    # nodes first, so edges never point at a node that comes later in the list
+    return [e for e in merged if "source" not in e["data"]] + [
+        e for e in merged if "source" in e["data"]
+    ]
+
+
+# def create_knowledge_graph():
+#     text = """
+#     Marie Curie, 7 November 1867 – 4 July 1934, was a Polish and naturalized-French physicist and chemist who conducted pioneering research on radioactivity.
+#     She was the first woman to win a Nobel Prize, the first person to win a Nobel Prize twice, and the only person to win a Nobel Prize in two scientific fields.
+#     Her husband, Pierre Curie, was a co-winner of her first Nobel Prize, making them the first-ever married couple to win the Nobel Prize and launching the Curie family legacy of five Nobel Prizes.
+#     She was, in 1906, the first woman to become a professor at the University of Paris.
+#     Also, Robin Williams.
+#     """
+#     documents = [Document(page_content=text)]
+#     llm = ChatOpenAI(model="gpt-6.2-astra")
+#     transformer = LLMGraphTransformer(llm=llm)
+#     graph_documents = transformer.convert_to_graph_documents(documents)
+#     print(graph_documents)
+#     return graph_documents
 
 
 def graph_documents_to_elements(graph_documents):
@@ -61,8 +79,37 @@ def graph_documents_to_elements(graph_documents):
 @bp.route("/knowledge-graph")
 @login_required
 def knowledge_graph():
-    graph_documents = create_knowledge_graph()
-    return jsonify(elements=graph_documents_to_elements(graph_documents))
+    conversation = get_active_conversation(g.user.id)
+
+    kg = db.session.execute(
+        db.select(KnowledgeGraph).filter_by(conversation_id=conversation.id)
+    ).scalar_one_or_none()
+    if kg is None:
+        kg = KnowledgeGraph(conversation_id=conversation.id)
+        db.session.add(kg)
+
+    new_messages = (
+        db.session.execute(
+            db.select(Message)
+            .filter(
+                Message.conversation_id == conversation.id,
+                Message.role == "teacher",
+                Message.id > kg.last_message_id,
+            )
+            .order_by(Message.id)
+        )
+        .scalars()
+        .all()
+    )
+
+    if new_messages:
+        text = "\n".join(m.content for m in new_messages)
+        new_elements = graph_documents_to_elements(extract_graph_documents(text))
+        kg.elements = merge_elements(kg.elements, new_elements)  # assign a new list
+        kg.last_message_id = new_messages[-1].id
+
+    db.session.commit()
+    return jsonify(elements=kg.elements)
 
 
 @bp.route("/end", methods=("POST",))

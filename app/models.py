@@ -45,3 +45,19 @@ class Message(db.Model):
         self.conversation_id = conversation_id
         self.role = role
         self.content = content
+
+
+class KnowledgeGraph(db.Model):
+    __tablename__ = "knowledge_graphs"
+
+    id = db.Column(db.Integer, primary_key=True)
+    conversation_id = db.Column(
+        db.Integer, db.ForeignKey("conversations.id"), nullable=False, unique=True
+    )
+    elements = db.Column(db.JSON, nullable=False, default=list)
+    last_message_id = db.Column(db.Integer, nullable=False, default=0)
+
+    def __init__(self, conversation_id):
+        self.conversation_id = conversation_id
+        self.elements = []
+        self.last_message_id = 0
