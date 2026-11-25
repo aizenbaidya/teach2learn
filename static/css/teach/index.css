@@ -1,10 +1,16 @@
+#teacher-input {
+    outline: none;
+    overflow: hidden;
+    resize: none;
+    cursor: text;
+}
+
 section.message-list {
     display: flex;
     flex-direction: column;
 }
 .message-list > .message {
     display: flex;
-    /* margin-top: 2rem; */
 }
 .message-list > .message > .nes-balloon {
     max-width: 550px;
