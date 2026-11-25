@@ -75,3 +75,8 @@ const timerInterval = setInterval(() => {
         endForm.submit();
     }
 }, 250);
+
+const kgButton = document.getElementById("knowledge-graph-button");
+const kgDialog = document.getElementById("knowledge-graph-dialog");
+
+kgButton.addEventListener("click", () => kgDialog.showModal());
