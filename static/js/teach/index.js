@@ -75,3 +75,11 @@ const timerInterval = setInterval(() => {
         endForm.submit();
     }
 }, 250);
+
+const kgButton = document.getElementById("knowledge-graph-button");
+const kgDialog = document.getElementById("knowledge-graph-dialog");
+kgButton.addEventListener("click", () => kgDialog.showModal());
+
+const todoListButton = document.getElementById("todo-list-button");
+const todoListDialog = document.getElementById("todo-list-dialog");
+todoListButton.addEventListener("click", () => todoListDialog.showModal());
