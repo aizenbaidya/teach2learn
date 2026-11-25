@@ -6,3 +6,4 @@ import "../css/base.css";
 import "nes.icons/css/nes-icons.min.css";
 
 import "./auth/auth-base.js";
+import "./teach/index.js";

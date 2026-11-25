@@ -2,10 +2,28 @@
 
 {% block title %}Teach{% endblock %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='dist/teach-index.css') }}">
+<link rel="module" src="{{ url_for('static', filename='dist/teach-index.js') }}">
+{% endblock %}
+
 {% block content %}
 <div class="vh-100 p-4">
     <div class="nes-container h-100 d-flex flex-column">
-
+        <section class="message-list h-100">
+            <section class="message -left">
+                <i class="nes-bcrikko"></i>
+                <div class="nes-balloon from-left">
+                    <p id="student-response">Hello!!</p>
+                </div>
+            </section>
+            <section class="message -right mt-auto">
+                <div id="teacher-input-div" class="nes-balloon from-right">
+                    <textarea id="teacher-input" class="p-0 border-0 w-100" rows="2" autofocus></textarea>
+                </div>
+                <i class="nes-bcrikko"></i>
+            </section>
+        </section>
     </div>
 </div>
 {% endblock %}
