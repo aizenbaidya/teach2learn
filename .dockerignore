@@ -14,4 +14,3 @@ README.md
 .env.example
 docker-compose.yaml
 CONTRIBUTING.md
-vite.config.js
