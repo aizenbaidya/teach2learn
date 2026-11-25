@@ -78,14 +78,6 @@ const timerInterval = setInterval(() => {
     }
 }, 250);
 
-// const kgButton = document.getElementById("knowledge-graph-button");
-// const kgDialog = document.getElementById("knowledge-graph-dialog");
-// kgButton.addEventListener("click", () => kgDialog.showModal());
-
-// const todoListButton = document.getElementById("todo-list-button");
-// const todoListDialog = document.getElementById("todo-list-dialog");
-// todoListButton.addEventListener("click", () => todoListDialog.showModal());
-
 const kgButton = document.getElementById("knowledge-graph-button");
 const kgDialog = document.getElementById("knowledge-graph-dialog");
 const kgContainer = document.getElementById("knowledge-graph");
@@ -96,7 +88,7 @@ let kgLoading = false;
 async function loadKnowledgeGraph() {
     if (kgLoading) return;
     kgLoading = true;
-    kgStatus.textContent = "Updating...";
+    kgStatus.textContent = "Thoughts are simmering...";
 
     try {
         const response = await fetch("/teach/knowledge-graph");
@@ -115,7 +107,7 @@ async function loadKnowledgeGraph() {
                         selector: "node",
                         style: {
                             label: "data(label)",
-                            "background-color": "#209cee",
+                            "background-color": "#305CDE",
                             "font-family": "'Press Start 2P'",
                             "font-size": 8,
                             "text-valign": "bottom",
@@ -126,6 +118,7 @@ async function loadKnowledgeGraph() {
                         selector: "edge",
                         style: {
                             label: "data(label)",
+                            "font-family": "'Press Start 2P'",
                             "curve-style": "bezier",
                             "target-arrow-shape": "triangle",
                             width: 2,
@@ -140,15 +133,13 @@ async function loadKnowledgeGraph() {
                 ],
             });
         } else {
-            cy.json({ elements }); // adds new elements, keeps existing ones by id
+            cy.json({ elements });
         }
         cy.layout({ name: "cose", animate: false, padding: 20 }).run();
         cy.resize();
         cy.fit();
 
-        kgStatus.textContent = elements.length
-            ? ""
-            : "Teach me something first!";
+        kgStatus.textContent = elements.length ? "" : "Knowledge Graph";
     } finally {
         kgLoading = false;
     }
