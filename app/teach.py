@@ -4,6 +4,7 @@ import anthropic
 from .auth import login_required
 from .db import db
 from .models import Conversation, Message, utcnow
+from .utils import get_file_contents
 
 bp = Blueprint("teach", __name__, url_prefix="/teach")
 client = anthropic.Anthropic()
@@ -41,6 +42,7 @@ def get_active_conversation(user_id):
 
 
 @bp.route("/chat", methods=("POST",))
+@login_required
 def chat():
     data = request.get_json()
     teacher_text = data.get("teacherText")
@@ -64,7 +66,9 @@ def chat():
 
     response = client.messages.create(
         model="claude-opus-5-5",
-        max_tokens=64,
+        max_tokens=1024,
+        output_config={"effort": "low"},
+        system=get_file_contents("prompts/student-system-prompt.txt"),
         messages=[
             {
                 "role": "user" if h.role == "teacher" else "assistant",
@@ -74,7 +78,9 @@ def chat():
         ],  # type: ignore
     )
 
-    student_text = [block.text for block in response.content if block.type == "text"]
+    student_text = "".join(
+        block.text for block in response.content if block.type == "text"
+    )
 
     db.session.add(
         Message(conversation_id=conversation.id, role="student", content=student_text)
