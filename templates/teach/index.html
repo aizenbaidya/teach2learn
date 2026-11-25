@@ -11,7 +11,7 @@
 <div class="vh-100 p-4">
     <div class="nes-container h-100 d-flex flex-column position-relative">
         <div class="position-absolute top-0 end-0 m-4 d-flex align-items-center gap-3">
-            <span id="timer">10:00</span>
+            <span id="timer" data-remaining-seconds="{{ remaining_seconds }}">10:00</span>
             <form id="end-form" method="post" action="{{ url_for('teach.end') }}" class="m-0">
                 <button type="submit" class="nes-btn is-error">End</button>
             </form>

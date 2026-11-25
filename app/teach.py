@@ -33,8 +33,9 @@ def index():
         .where(Conversation.user_id == g.user.id, Conversation.ended_at.is_(None))
         .values(ended_at=utcnow())
     )
+    db.session.add(Conversation(user_id=g.user.id))
     db.session.commit()
-    return render_template("teach/index.html")
+    return render_template("teach/index.html", remaining_seconds=SESSION_SECONDS)
 
 
 def get_active_conversation(user_id):

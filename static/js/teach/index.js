@@ -58,6 +58,8 @@ function syncTimer(remainingSeconds) {
     endsAt = Date.now() + remainingSeconds * 1000;
 }
 
+syncTimer(Number(timer.dataset.remainingSeconds));
+
 let lastShown = null;
 
 const timerInterval = setInterval(() => {
