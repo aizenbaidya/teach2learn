@@ -1,11 +1,7 @@
-from datetime import datetime, timezone
 from sqlalchemy.orm import Mapped, mapped_column
 
 from .db import db
-
-
-def utcnow():
-    return datetime.now(timezone.utc)
+from .utils import utcnow
 
 
 class User(db.Model):
