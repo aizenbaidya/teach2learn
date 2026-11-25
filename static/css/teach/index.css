@@ -1,3 +1,7 @@
+#knowledge-graph-status:empty::before {
+    content: "Knowledge Graph";
+}
+
 #knowledge-graph-dialog[open] {
     display: flex;
     flex-direction: column;
