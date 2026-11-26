@@ -2,10 +2,22 @@
 
 {% block title %}Reflect{% endblock %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='dist/reflect-index.css') }}">
+<script type="module" src="{{ url_for('static', filename='dist/reflect-index.js') }}"></script>
+{% endblock %}
+
 {% block content %}
 <div class="vh-100 p-4">
     <div class="nes-container h-100 d-flex flex-column position-relative">
-
+        <div class="d-flex justify-content-center align-items-center position-relative">
+            <a type="button" class="nes-btn is-error position-absolute start-0" href="{{ url_for('homepage') }}">
+                <span>&lt;</span>
+            </a>
+            <h2>Reflect</h2>
+        </div>
     </div>
 </div>
+
+
 {% endblock %}
