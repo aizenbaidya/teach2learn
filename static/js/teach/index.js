@@ -136,12 +136,29 @@ async function loadKnowledgeGraph() {
                     },
                 ],
             });
+            cy.layout({ name: "grid", animate: false, padding: 20 }).run();
+            cy.resize();
+            cy.fit();
         } else {
-            cy.json({ elements });
+            cy.resize();
+
+            const newElements = elements.filter((el) =>
+                cy.getElementById(el.data.id).empty(),
+            );
+            if (newElements.length) {
+                const oldNodes = cy.nodes();
+                cy.add(newElements);
+
+                oldNodes.lock();
+                cy.layout({
+                    name: "cose",
+                    animate: false,
+                    padding: 20,
+                    fit: false,
+                }).run();
+                oldNodes.unlock();
+            }
         }
-        cy.layout({ name: "grid", animate: false, padding: 20 }).run();
-        cy.resize();
-        cy.fit();
 
         kgStatus.textContent = "";
         kgStatus.classList.remove("is-warning");
