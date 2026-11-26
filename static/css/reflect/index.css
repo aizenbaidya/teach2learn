@@ -1,6 +1,7 @@
-/* .back-btn {
-    position: fixed;
-    top: 30px;
-    left: 30px;
-    z-index: 100;
-} */
+.hide-scrollbar {
+    scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}

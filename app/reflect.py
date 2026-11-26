@@ -1,6 +1,8 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, g
 
 from .auth import login_required
+from .models import Conversation
+from .db import db
 
 bp = Blueprint("reflect", __name__, url_prefix="/reflect")
 
@@ -8,4 +10,13 @@ bp = Blueprint("reflect", __name__, url_prefix="/reflect")
 @bp.route("")
 @login_required
 def index():
-    return render_template("reflect/index.html")
+    conversations = (
+        db.session.execute(
+            db.select(Conversation)
+            .where(Conversation.user_id == g.user.id)
+            .order_by(Conversation.created_at.desc())
+        )
+        .scalars()
+        .all()
+    )
+    return render_template("reflect/index.html", conversations=conversations)
