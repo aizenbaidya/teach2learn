@@ -1,3 +1,28 @@
+#knowledge-graph-status:empty::before {
+    content: "Knowledge Graph";
+}
+
+#knowledge-graph-dialog[open] {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#knowledge-graph-dialog > form {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#knowledge-graph {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    /* border: 4px solid #212529; */
+    margin-bottom: 1rem;
+}
+
 .avatar {
     width: 80px;
     height: 80px;
