@@ -29,9 +29,11 @@ def create_app():
 
     import app.auth as auth
     import app.teach as teach
+    import app.reflect as reflect
 
     app.register_blueprint(auth.bp)
     app.register_blueprint(teach.bp)
+    app.register_blueprint(reflect.bp)
 
     CANONICAL_HOST = os.getenv("CANONICAL_HOST")
 
