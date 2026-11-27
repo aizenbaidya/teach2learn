@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, g
+from flask import Blueprint, abort, render_template, g, request
 
 from .auth import login_required
-from .models import Conversation
+from .models import Conversation, Message
 from .db import db
 
 bp = Blueprint("reflect", __name__, url_prefix="/reflect")
@@ -25,4 +25,22 @@ def index():
 @bp.route("/view")
 @login_required
 def view():
-    return render_template("reflect/view.html")
+    public_id = request.args.get("c")
+    conversation = db.session.execute(
+        db.select(Conversation).where(
+            Conversation.public_id == public_id,
+            Conversation.user_id == g.user.id,
+        )
+    ).scalar_one_or_none()
+    if conversation is None:
+        abort(404)
+    messages = (
+        db.session.execute(
+            db.select(Message)
+            .where(Message.conversation_id == conversation.id)
+            .order_by(Message.created_at, Message.id)
+        )
+        .scalars()
+        .all()
+    )
+    return render_template("reflect/view.html", messages=messages)
