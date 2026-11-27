@@ -20,3 +20,9 @@ def index():
         .all()
     )
     return render_template("reflect/index.html", conversations=conversations)
+
+
+@bp.route("/view")
+@login_required
+def view():
+    return render_template("reflect/view.html")

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="vh-100 p-4">
+    <div class="nes-container h-100 d-flex flex-column position-relative">
+        <div class="d-flex justify-content-center align-items-center position-relative mb-4">
+            <a type="button" class="nes-btn is-error position-absolute start-0" href="{{ url_for('reflect.index') }}">
+                <span>&lt;</span>
+            </a>
+            <h2>Conversation</h2>
+        </div>
+    </div>
+</div>
+{% endblock %}

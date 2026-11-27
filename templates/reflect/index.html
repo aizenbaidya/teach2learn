@@ -32,7 +32,7 @@
 
                 <div class="position-absolute d-flex" style="bottom: -4px; right: -4px;">
                     <button type="button" class="nes-btn" style="right: -4px;">Result</button>
-                    <button type="button" class="nes-btn">View</button>
+                    <a type="button" class="nes-btn" href="{{ url_for('reflect.view') }}">View</a>
                 </div>
             </section>
             {% endfor %}
