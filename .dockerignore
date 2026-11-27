@@ -6,4 +6,3 @@ __pycache__/
 .gitignore
 Dockerfile
 run.sh
-requirements.txt
