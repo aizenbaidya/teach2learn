@@ -11,3 +11,6 @@ services:
                 - action: sync
                   path: ./templates
                   target: /app/templates
+                - action: sync
+                  path: ./static
+                  target: /app/static
