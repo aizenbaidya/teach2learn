@@ -1,5 +1,7 @@
 from flask import Flask, render_template
 
+from db import db
+
 
 def create_app():
     """The application factory function.
@@ -11,6 +13,9 @@ def create_app():
         The Flask application instance.
     """
     app = Flask(__name__, template_folder="../templates", static_folder="../static")
+
+    db.init_app(app)
+    db.create_all()
 
     @app.route("/")
     def homepage():
