@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template
+from dotenv import load_dotenv
 
 from .db import db
 
@@ -13,6 +14,8 @@ def create_app():
     Returns:
         The Flask application instance.
     """
+    load_dotenv()
+
     app = Flask(__name__, template_folder="../templates", static_folder="../static")
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 

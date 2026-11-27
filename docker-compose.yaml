@@ -1,7 +1,18 @@
 services:
+    mydb:
+        image: postgres:18
+        environment:
+            POSTGRES_DB: mydb
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        ports:
+            - "5432:5432"
     teach2learn:
         image: teach2learn
         build: .
         container_name: teach2learn
+        env_file: .env
         ports:
-            - "1234:5000"
+            - "5000:5000"
+        depends_on:
+            mydb:
+                condition: service_healthy
