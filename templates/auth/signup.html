@@ -3,3 +3,5 @@
 {% set page_name = "Signup" %}
 
 {% block title %}{{ page_name }}{% endblock %}
+
+{% block footer %}Got an account? <a href="{{ url_for('auth.login') }}">Login</a>!{% endblock %}
