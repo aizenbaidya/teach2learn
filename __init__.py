@@ -2,7 +2,7 @@ from flask import Flask, render_template
 
 
 def create_app():
-    """The application factory.
+    """The application factory function.
 
     The Flask application instance is created inside this function. All configuration, registration,
     and setup needed by the application happens in here.
