@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Reflect{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='dist/reflect-index.css') }}">
+<script type="module" src="{{ url_for('static', filename='dist/reflect-index.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="vh-100 p-4">
+    <div class="nes-container h-100 d-flex flex-column position-relative">
+        <div class="d-flex justify-content-center align-items-center position-relative mb-4">
+            <a type="button" class="nes-btn is-error position-absolute start-0" href="{{ url_for('homepage') }}">
+                <span>&lt;</span>
+            </a>
+            <h2>Reflect</h2>
+        </div>
+
+        <div class="d-flex flex-column gap-4 flex-grow-1 overflow-auto hide-scrollbar">
+            {% for conversation in conversations %}
+            <section class="nes-container with-title">
+                <h3 class="title">Conversation</h3>
+
+                <div class="lists">
+                    <ul class="nes-list is-disc">
+                        <li>Topic: {{ conversation.title }}</li>
+                        <li>Created: {{ conversation.created_at }}</li>
+                        <li>Ended: {{ conversation.ended_at }}</li>
+                    </ul>
+                </div>
+
+                <div class="position-absolute d-flex" style="bottom: -4px; right: -4px;">
+                    <button type="button" class="nes-btn" style="right: -4px;">Result</button>
+                    <a type="button" class="nes-btn"
+                        href="{{ url_for('reflect.view', c=conversation.public_id) }}">View</a>
+                </div>
+            </section>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

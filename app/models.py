@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Mapped, mapped_column
+import secrets
 
 from .db import db
 from .utils import utcnow
@@ -19,7 +20,14 @@ class User(db.Model):
 class Conversation(db.Model):
     __tablename__ = "conversations"
 
-    id = db.Column(db.Integer, primary_key=True)
+    id: Mapped[int] = mapped_column(db.Integer, primary_key=True)
+    public_id = db.Column(
+        db.Text,
+        unique=True,
+        index=True,
+        nullable=False,
+        default=lambda: secrets.token_urlsafe(6),  # 8 characters
+    )
     user_id: Mapped[int] = mapped_column(
         db.Integer, db.ForeignKey("users.id"), nullable=False, index=True
     )
@@ -34,7 +42,7 @@ class Message(db.Model):
     __tablename__ = "messages"
 
     id = db.Column(db.Integer, primary_key=True)
-    conversation_id = db.Column(
+    conversation_id: Mapped[int] = mapped_column(
         db.Integer, db.ForeignKey("conversations.id"), nullable=False, index=True
     )
     role = db.Column(db.Text, nullable=False)  # 'teacher' or 'student'

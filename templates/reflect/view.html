@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}View{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='dist/view.css') }}">
+<script type="module" src="{{ url_for('static', filename='dist/view.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="vh-100 p-4">
+    <div class="nes-container h-100 d-flex flex-column position-relative">
+        <div class="d-flex justify-content-center align-items-center position-relative mb-4">
+            <a type="button" class="nes-btn is-error position-absolute start-0" href="{{ url_for('reflect.index') }}">
+                <span>&lt;</span>
+            </a>
+            <h2>Conversation</h2>
+        </div>
+
+        <!-- class="d-flex flex-column gap-4 flex-grow-1 overflow-auto hide-scrollbar" -->
+        <div class="d-flex flex-column overflow-auto hide-scrollbar">
+            {% for message in messages %}
+            <p>{{ message.content }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

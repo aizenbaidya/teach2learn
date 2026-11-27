@@ -88,7 +88,11 @@ let kgLoading = false;
 async function loadKnowledgeGraph() {
     if (kgLoading) return;
     kgLoading = true;
-    kgStatus.textContent = "Thoughts are simmering...";
+
+    const loadingTimer = setTimeout(() => {
+        kgStatus.textContent = "Thoughts are simmering...";
+        kgStatus.classList.add("is-warning");
+    }, 250);
 
     try {
         const response = await fetch("/teach/knowledge-graph");
@@ -132,15 +136,34 @@ async function loadKnowledgeGraph() {
                     },
                 ],
             });
+            cy.layout({ name: "grid", animate: false, padding: 20 }).run();
+            cy.resize();
+            cy.fit();
         } else {
-            cy.json({ elements });
-        }
-        cy.layout({ name: "cose", animate: false, padding: 20 }).run();
-        cy.resize();
-        cy.fit();
+            cy.resize();
 
-        kgStatus.textContent = elements.length ? "" : "Knowledge Graph";
+            const newElements = elements.filter((el) =>
+                cy.getElementById(el.data.id).empty(),
+            );
+            if (newElements.length) {
+                const oldNodes = cy.nodes();
+                cy.add(newElements);
+
+                oldNodes.lock();
+                cy.layout({
+                    name: "cose",
+                    animate: false,
+                    padding: 20,
+                    fit: false,
+                }).run();
+                oldNodes.unlock();
+            }
+        }
+
+        kgStatus.textContent = "";
+        kgStatus.classList.remove("is-warning");
     } finally {
+        clearTimeout(loadingTimer);
         kgLoading = false;
     }
 }
