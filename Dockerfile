@@ -10,4 +10,6 @@ WORKDIR /app
 COPY . .
 RUN pip install -r requirements.txt
 COPY --from=assets app/static/dist static/dist
+RUN rm -r static/js static/css
+RUN rm package-lock.json package.json vite.config.js requirements.txt
 CMD ["flask", "run", "--host", "0.0.0.0"]

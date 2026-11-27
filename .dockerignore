@@ -4,6 +4,7 @@ __pycache__/
 node_modules/
 static/dist/
 
+.git
 .dockerignore
 .gitignore
 Dockerfile
