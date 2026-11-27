@@ -10,7 +10,7 @@ def create_app():
     Returns:
         The Flask application instance.
     """
-    app = Flask(__name__, template_folder="../templates")
+    app = Flask(__name__, template_folder="../templates", static_folder="../static")
 
     @app.route("/")
     def homepage():
