@@ -1,0 +1,7 @@
+services:
+    teach2learn:
+        image: teach2learn
+        build: .
+        container_name: teach2learn
+        ports:
+            - "1234:5000"
