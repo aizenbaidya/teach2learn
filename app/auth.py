@@ -2,8 +2,8 @@ from flask import Blueprint, render_template, request
 from werkzeug.security import generate_password_hash
 from sqlalchemy.exc import IntegrityError
 
-from db import db
-from models import User
+from .db import db
+from .models import User
 
 bp = Blueprint("auth", __name__)
 
