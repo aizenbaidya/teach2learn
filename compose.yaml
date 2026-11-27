@@ -1,0 +1,14 @@
+services:
+    app:
+        container_name: app
+        build: .
+        image: app
+        ports:
+            - 1234:5000
+        environment:
+            - FLASK_DEBUG=1
+        develop:
+            watch:
+                - action: sync
+                  path: ./templates
+                  target: /app/templates
