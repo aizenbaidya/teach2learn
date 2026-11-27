@@ -17,8 +17,6 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 
     db.init_app(app)
-    with app.app_context():
-        db.create_all()
 
     @app.route("/")
     def homepage():
@@ -27,5 +25,8 @@ def create_app():
     from . import auth
 
     app.register_blueprint(auth.bp)
+
+    with app.app_context():
+        db.create_all()
 
     return app
