@@ -7,6 +7,7 @@ export default defineConfig({
         rolldownOptions: {
             input: {
                 base: "static/js/base.js",
+                "auth-base": "static/js/auth/auth-base.js",
             },
             output: {
                 entryFileNames: "[name].js",

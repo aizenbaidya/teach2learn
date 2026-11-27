@@ -1,3 +1,7 @@
 body {
     background-color: #f2f0ef;
 }
+
+.nes-input {
+    background-color: transparent;
+}
