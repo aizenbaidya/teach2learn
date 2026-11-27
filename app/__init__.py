@@ -17,7 +17,8 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 
     db.init_app(app)
-    db.create_all()
+    with app.app_context():
+        db.create_all()
 
     @app.route("/")
     def homepage():
