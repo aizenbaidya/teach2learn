@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %} - Teach2Learn</title>
     <link rel="icon" href="{{ url_for('static', filename='img/apple.png') }}">
+    <link rel="preload" href="{{ url_for('static', filename='dist/press-start-2p-latin-400-normal.woff2') }}" as="font"
+        type="font/woff2" crossorigin>
     <link rel="stylesheet" href="{{ url_for('static', filename='dist/base.css') }}">
 </head>
 
