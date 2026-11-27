@@ -16,4 +16,8 @@ def create_app():
     def homepage():
         return render_template("homepage.html")
 
+    import app.auth as auth
+
+    app.register_blueprint(auth.bp)
+
     return app
