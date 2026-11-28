@@ -10,4 +10,4 @@ WORKDIR /app
 COPY . .
 RUN pip install -r requirements.txt
 COPY --from=assets app/static/dist static/dist
-CMD ["gunicorn", "app:create_app()"]
+CMD python -m app.init_db && exec gunicorn "app:create_app()"
