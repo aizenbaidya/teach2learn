@@ -10,4 +10,4 @@ WORKDIR /app
 COPY . .
 RUN pip install -r requirements.txt
 COPY --from=assets app/static/dist static/dist
-CMD ["flask", "run", "--host=0.0.0.0"]
+CMD ["gunicorn", "app:create_app()"]
