@@ -10,6 +10,7 @@
         type="font/woff2" crossorigin>
     <link rel="stylesheet" href="{{ url_for('static', filename='dist/base.css') }}">
     <script src="{{ url_for('static', filename='dist/base.js') }}" defer></script>
+    {% block head %}{% endblock %}
 </head>
 
 <body>

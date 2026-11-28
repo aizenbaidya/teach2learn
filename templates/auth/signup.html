@@ -1,3 +1,5 @@
 {% extends "auth/auth-base.html" %}
 
 {% set page_name = "Signup" %}
+
+{% block footer %}Got an account? <a href="{{ url_for('auth.login') }}">Login</a>!{% endblock %}

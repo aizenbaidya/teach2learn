@@ -1,0 +1,7 @@
+.nes-input {
+    background-color: transparent;
+    min-width: 0;
+}
+.nes-input:focus {
+    outline: none;
+}
